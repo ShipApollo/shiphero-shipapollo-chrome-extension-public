@@ -1,15 +1,15 @@
 # ShipHero Lookup — update distribution
 
-This repo holds only the **signed CRX3 package** (`latest.crx`) and **Chrome update
-manifest** (`update-manifest.xml`) for the [ShipHero Lookup Chrome
+This repo holds only generated distribution files for the [ShipHero Lookup Chrome
 extension](https://github.com/ShipApollo/shiphero-lookup-extension). It contains no
-source code.
+source code. Everything here is regenerated and pushed automatically by the source
+repo's `release.yml` workflow on every version bump — don't edit these files by hand.
 
-It exists so that `raw.githubusercontent.com` can serve these two files without
-authentication, which Chrome's built-in extension updater requires. Company-managed
-devices install and auto-update the extension via Intune's `ExtensionInstallForcelist`
-policy pointed at `update-manifest.xml` in this repo — see the source repo's README
-("Self-hosted updates for company-managed devices (Intune)") for full details.
+| File                                  | Used by                                                                                                                                                                       |
+| -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `latest.crx` + `update-manifest.xml`   | Company-managed (Intune) devices, via `ExtensionInstallForcelist` pointed at `update-manifest.xml`. Chrome installs/updates silently.                                        |
+| `latest.zip` + `update-extension.bat`  | Anyone using "Load unpacked" (Developer mode) manually. Run `update-extension.bat` to install or update — see the source repo's README ("Manual update script") for details. |
 
-Both files here are regenerated and pushed automatically by the source repo's
-`release.yml` workflow on every version bump. Do not edit them by hand.
+This repo is public (not the source code) specifically so `raw.githubusercontent.com`
+can serve these files without authentication, which both Chrome's built-in updater and
+the manual `.bat` script require.
